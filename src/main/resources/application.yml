@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: SiparisYonetimSistemi
+  web:
+    resources:
+      add-mappings: true
+
+security:
+  jwt:
+    expiration-time: ${JWT_EXPIRATION_TIME:3600000}
+    secret: ${JWT_SECRET:}
+
+redirect:
+  forwardUrl: /
+

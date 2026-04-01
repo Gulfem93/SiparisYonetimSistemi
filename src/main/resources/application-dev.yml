@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: SiparisYonetimSistemi
+  jpa:
+
+    hibernate:
+      ddl-auto: update
+    open-in-view: true
+    properties:
+      hibernate:
+        current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/siparisyonetimdb
+    username: root
+    password: Secret@3210
+security:
+  jwt:
+    expiration-time: 3600000
+default:
+  locale: tr
+
+app:
+  search:
+    elasticsearch:
+      enabled: ${ELASTICSEARCH_ENABLED:true}
