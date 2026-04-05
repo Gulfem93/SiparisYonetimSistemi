@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="tr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kayit | Siparis Yonetim Sistemi</title>
+    <link rel="stylesheet" th:href="@{/css/signup.css}">
+</head>
+<body>
+<main class="signup-shell">
+    <section class="signup-panel">
+        <p class="panel-kicker">Musteri Kayit</p>
+        <h1>Hesabini olustur, siparislerini hemen yonetmeye basla</h1>
+        <p class="panel-text">
+            Kaydini tamamladiktan sonra customer alanina gecerek siparislerini takip edebilir,
+            adres bilgilerini yonetebilir ve kampanyalardan yararlanabilirsin.
+        </p>
+
+        <ul class="panel-benefits">
+            <li>Tek ekrandan siparis takibi</li>
+            <li>Adres ve iletisim yonetimi</li>
+            <li>Kampanya ve kupon avantajlari</li>
+        </ul>
+    </section>
+
+    <section class="signup-form-area">
+        <div class="signup-card">
+            <h2>Yeni Musteri Kaydi</h2>
+            <p class="card-subtitle">Lutfen bilgilerini eksiksiz doldur.</p>
+            <div class="form-alert" th:if="${errorMessage}" th:text="${errorMessage}">Kayit hatasi</div>
+
+            <form th:action="@{/signup}" method="post" class="signup-form">
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="fullName">Ad Soyad</label>
+                        <input id="fullName" name="name" type="text" placeholder="Ornek: Ahmet Yilmaz" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="type">Musteri Tipi</label>
+                        <select id="type" name="type" required>
+                            <option value="" selected disabled>Seciniz</option>
+                            <option value="INDIVIDUAL">Bireysel</option>
+                            <option value="CORPORATE">Kurumsal</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="email">E-posta</label>
+                        <input id="email" name="email" type="email" placeholder="ornek@mail.com" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="phone">Telefon</label>
+                        <input id="phone" name="phone" type="tel" placeholder="05xx xxx xx xx" required>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="address">Adres</label>
+                    <textarea id="address" name="address" rows="3" placeholder="Acik adres bilgisi" required></textarea>
+                </div>
+
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="password">Sifre</label>
+                        <input id="password" name="password" type="password" autocomplete="new-password" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="passwordConfirm">Sifre Tekrar</label>
+                        <input id="passwordConfirm" name="rePassword" type="password" autocomplete="new-password" required>
+                    </div>
+                </div>
+
+                <input
+                        th:if="${_csrf != null}"
+                        type="hidden"
+                        th:name="${_csrf.parameterName}"
+                        th:value="${_csrf.token}">
+
+                <button type="submit" class="signup-btn">Kayit Ol</button>
+            </form>
+
+            <p class="login-link">
+                Hesabin zaten var mi?
+                <a th:href="@{/login}">Giris sayfasina don</a>
+            </p>
+        </div>
+    </section>
+</main>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="tr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giris | Siparis Yonetim Sistemi</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+</head>
+<body>
+<main class="login-shell">
+    <section class="login-showcase">
+        <p class="showcase-kicker">Siparis Yonetim Sistemi</p>
+        <h1>Hizli, guvenli ve net bir giris deneyimi</h1>
+        <p class="showcase-text">
+            Siparislerinizi, musteri hareketlerini ve operasyon akislarini tek noktadan yonetin.
+            Hesabiniza giris yaparak panelinize devam edin.
+        </p>
+
+        <div class="showcase-cards">
+            <article class="showcase-card">
+                <h2>Anlik Takip</h2>
+                <p>Siparis durumlarina tek bakista ulasin.</p>
+            </article>
+            <article class="showcase-card">
+                <h2>Duzenli Is Akisi</h2>
+                <p>Admin ve musteri ekranlarini ayrik yonetin.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="login-panel">
+        <div class="login-card">
+            <h2>Hesabina Giris Yap</h2>
+            <p class="card-subtitle">Bilgilerini girerek paneline devam et.</p>
+
+            <div th:if="${param.error}" class="alert alert-error">
+                Giris basarisiz. Kullanici adi veya sifreyi kontrol et.
+            </div>
+            <div th:if="${param.logout}" class="alert alert-success">
+                Cikis islemi basarili.
+            </div>
+
+            <form th:action="@{/login}" method="post" class="login-form">
+                <label for="username">Kullanici Adi / E-posta</label>
+                <input id="username" name="username" type="text" autocomplete="username" required>
+
+                <label for="password">Sifre</label>
+                <input id="password" name="password" type="password" autocomplete="current-password" required>
+
+                <input
+                        th:if="${_csrf != null}"
+                        type="hidden"
+                        th:name="${_csrf.parameterName}"
+                        th:value="${_csrf.token}">
+
+                <button type="submit" class="login-btn">Giris Yap</button>
+            </form>
+
+            <div class="login-links">
+                <a th:href="@{/signup}" class="link-secondary">Musteri Kayit</a>
+                <a th:href="@{/(role='customer')}" class="link-secondary">Customer Onizleme</a>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>

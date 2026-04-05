@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="tr" xmlns:th="http://www.thymeleaf.org">
+<body>
+<header th:fragment="navbar" class="navbar">
+    <div class="navbar-title">
+        <h2 th:text="${panelTitle != null ? panelTitle : 'Dashboard'}">Dashboard</h2>
+        <p th:text="${panelSubtitle != null ? panelSubtitle : 'Siparis Yonetim Sistemi yonetim ekrani'}">Siparis Yonetim Sistemi yonetim ekrani</p>
+    </div>
+
+    <div class="navbar-right">
+        <div class="admin-badge" th:text="${panelBadge != null ? panelBadge : 'Yonetici Paneli'}">Yonetici Paneli</div>
+        <div class="admin-badge" th:text="${currentUserDisplay != null ? currentUserDisplay : 'Misafir'}">Misafir</div>
+        <div class="avatar" th:text="${panelAvatar != null ? panelAvatar : 'A'}">A</div>
+    </div>
+</header>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="tr" xmlns:th="http://www.thymeleaf.org">
+<body>
+<aside th:fragment="sidebar" class="sidebar">
+    <div>
+        <div class="sidebar-top-title">
+            <h1 th:text="${isCustomer} ? 'Musteri Paneli' : 'SYS Panel'">SYS Panel</h1>
+            <p th:text="${isCustomer} ? 'Siparis ve hesap yonetimi' : 'Yonetim ve takip ekrani'">Yonetim ve takip ekrani</p>
+        </div>
+
+        <nav class="sidebar-nav" th:if="${!isCustomer}">
+            <a th:href="@{/}" class="sidebar-link active">Ana Sayfa</a>
+            <a href="#" class="sidebar-link">Siparisler</a>
+            <a href="#" class="sidebar-link">Musteriler</a>
+            <a href="#" class="sidebar-link">Urunler</a>
+            <a href="#" class="sidebar-link">Raporlar</a>
+            <a href="#" class="sidebar-link">Ayarlar</a>
+        </nav>
+
+        <nav class="sidebar-nav" th:if="${isCustomer}">
+            <a th:href="@{/}" class="sidebar-link active">Ana Sayfa</a>
+            <a href="#" class="sidebar-link">Siparislerim</a>
+            <a href="#" class="sidebar-link">Sepetim</a>
+            <a href="#" class="sidebar-link">Adreslerim</a>
+            <a href="#" class="sidebar-link">Odeme Yontemleri</a>
+            <a href="#" class="sidebar-link">Destek</a>
+        </nav>
+    </div>
+
+    <div class="sidebar-info" th:if="${!isCustomer}">
+        <strong>Sistem Bilgisi</strong>
+        Aktif kullanici: <span th:text="${currentUserDisplay != null ? currentUserDisplay : 'Misafir'}">Misafir</span> <br>
+        Surum: v1.0
+    </div>
+
+    <div class="sidebar-info" th:if="${isCustomer}">
+        <strong>Hesap Bilgisi</strong>
+        Aktif kullanici: <span th:text="${currentUserDisplay != null ? currentUserDisplay : 'Misafir'}">Misafir</span> <br>
+        Uyeligi: Standart
+    </div>
+</aside>
+</body>
+</html>

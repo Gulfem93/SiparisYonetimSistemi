@@ -3,25 +3,22 @@ package com.siparisYonetim.SiparisYonetimSistemi.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Entity
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
-@Table(name = "USER")
-public class UserModel {
+@Table(name = "CUSTOMER")
+public class CustomerModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    public String name;
+
+    private String type;
+    private Long phone;
     @Email
     @NotBlank
-    public String email;
-    @NotBlank
-    public String password;
+    private String email;
+    private String address;
 }
