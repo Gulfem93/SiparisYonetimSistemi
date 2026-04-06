@@ -1,13 +1,16 @@
 package com.siparisYonetim.SiparisYonetimSistemi.data;
+
 import lombok.Data;
 
 import java.io.Serializable;
 
 @Data
-public class UserData implements Serializable {
+public class CustomerData implements Serializable {
     private Long id;
     private String name;
-    private String mail;
-    private String password;
+    private String type;
+    private Long phone;
+    private String email;
+    private String address;
 
 }
