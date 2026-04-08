@@ -45,6 +45,9 @@ public class UserService {
             user.setName(user.getName());
             user.setMail(normalizedMail);
             user.setUsername(normalizedMail);
+            if (userData.getAccountType() != null) {
+                user.setAccountType(userData.getAccountType().name());
+            }
             userRepository.save(user);
             return true;
         } catch (RuntimeException ex) {

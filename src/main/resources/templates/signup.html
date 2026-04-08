@@ -6,7 +6,7 @@
     <title>Signup</title>
     <link rel="stylesheet" th:href="@{/css/login.css}">
 </head>
-<body class="login-page page-login">
+<body class="login-page page-login page-signup">
 <main class="login-shell">
     <div th:replace="~{main :: navbar}"></div>
 
@@ -17,14 +17,20 @@
         <div class="login-stage">
             <aside class="login-copy">
                 <p class="eyebrow">Siparis Yonetim Sistemi</p>
-                <h1>Operasyonunu tek ekranda yonet.</h1>
+                <h1>Ekibini hizlica kur, siparislerini tek panelde yonet.</h1>
                 <p class="intro">
-                    Yeni hesap olusturarak siparis akisini, stok hareketlerini ve ekip operasyonunu tek panelde takip et.
+                    Yeni hesapla is akisini saniyeler icinde baslat. Musteri, stok ve operasyon sureclerini ayni yerde topla.
                 </p>
+                <div class="copy-pills">
+                    <span>Hizli kurulum</span>
+                    <span>Merkezi panel</span>
+                    <span>Guvenli hesap</span>
+                </div>
             </aside>
 
             <section class="login-card" aria-labelledby="signup-title">
                 <div class="card-top">
+                    <p class="mini-badge">Yeni Kullanici</p>
                     <h2 id="signup-title">Yeni Hesap Olustur</h2>
                     <p class="card-subtitle">Bilgilerini gir, hemen kullanmaya basla.</p>
                 </div>
@@ -68,6 +74,20 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="accountType">Account Type</label>
+                        <div class="input-wrap select-wrap">
+                            <span class="field-icon" aria-hidden="true">T</span>
+                            <select id="accountType" th:field="*{accountType}" class="home_input select_input" required>
+                                <option value="">Seciniz</option>
+                                <option value="CUSTOMER">Customer</option>
+                                <option value="PRODUCER">Producer</option>
+                            </select>
+                        </div>
+                        <small th:if="${#fields.hasErrors('accountType')}" th:errors="*{accountType}" class="field-error"></small>
+                        <small class="field-hint">Kayit turunu sec, panel ona gore ozellestirilir.</small>
+                    </div>
+
+                    <div class="form-group">
                         <label for="password">Password</label>
                         <div class="input-wrap">
                             <span class="field-icon" aria-hidden="true"></span>
@@ -83,7 +103,7 @@
                         <small th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="field-error"></small>
                     </div>
 
-                    <button type="submit" class="login-btn">Kayit Ol</button>
+                    <button type="submit" class="login-btn">Hesap Olustur</button>
                 </form>
 
                 <p class="signup-link">

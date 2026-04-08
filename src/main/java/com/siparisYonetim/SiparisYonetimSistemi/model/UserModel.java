@@ -12,7 +12,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@Table(name = "user")
+@Table(name = "USER")
 public class UserModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,4 +28,6 @@ public class UserModel {
     @NotNull
     @NotBlank
     private String password;
+
+    private String accountType;
 }

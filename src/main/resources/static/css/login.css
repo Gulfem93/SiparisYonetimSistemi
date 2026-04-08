@@ -286,6 +286,20 @@ body.login-page {
     z-index: 1;
 }
 
+.mini-badge {
+    margin: 0 0 0.45rem;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    background: #e9f3ff;
+    color: #1d65b0;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.28rem 0.56rem;
+}
+
 .login-card h2 {
     margin: 0;
     font-family: "Space Grotesk", "Manrope", sans-serif;
@@ -360,6 +374,13 @@ body.login-page {
     font-weight: 700;
 }
 
+.field-hint {
+    margin-top: 0.2rem;
+    color: #5e7289;
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
 .home_input {
     width: 100%;
     border: 1px solid var(--border);
@@ -369,6 +390,23 @@ body.login-page {
     color: var(--text-main);
     font: inherit;
     transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease, background-color 160ms ease;
+}
+
+.select_input {
+    appearance: none;
+    cursor: pointer;
+    padding-right: 2rem;
+}
+
+.input-wrap.select-wrap::after {
+    content: "▾";
+    position: absolute;
+    right: 0.8rem;
+    top: 50%;
+    transform: translateY(-52%);
+    color: #6480a1;
+    font-size: 0.74rem;
+    pointer-events: none;
 }
 
 .home_input:focus {
@@ -397,6 +435,10 @@ body.login-page {
     transform: translateY(-1px);
     box-shadow: 0 12px 22px rgba(222, 74, 35, 0.28);
     filter: saturate(1.04);
+}
+
+.page-signup .login-btn {
+    background: linear-gradient(135deg, #2a8ff0 0%, #1765ca 100%);
 }
 
 .login-btn:active {
