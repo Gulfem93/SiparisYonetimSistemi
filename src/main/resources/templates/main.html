@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Layout</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+</head>
+<body>
+
+<div th:fragment="navbar" class="navbar">
+    <div class="navbar-left">
+        <h1>Siparis Yonetim Sistemi</h1>
+    </div>
+
+    <div class="navbar-right">
+        <div class="user-menu">
+            <button type="button" class="user-menu-toggle" aria-haspopup="true">
+                Hesabim
+                <span class="caret" aria-hidden="true">▾</span>
+            </button>
+
+            <ul class="dropdown-menu" role="menu" aria-label="User Menu">
+                <li><a class="dropdown-item" th:href="@{/me/profile}">Profile</a></li>
+                <li class="menu-divider" role="separator"></li>
+                <li>
+                    <form th:action="@{/logout}" method="post" class="logout-form">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                        <button type="submit" class="dropdown-item text-danger">Log out</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

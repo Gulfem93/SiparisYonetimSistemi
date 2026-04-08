@@ -1,11 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ana Sayfa</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/home.css}">
 </head>
-<body>
-<h1>Welcome</h1>
+<body class="home-page">
+<main class="home-shell">
+    <div th:replace="~{main :: navbar}"></div>
 
+    <section class="hero-area">
+        <div class="shape shape-a"></div>
+        <div class="shape shape-b"></div>
+
+        <div class="hero-grid">
+            <article class="hero-content">
+                <p class="kicker">Siparis Yonetim Sistemi</p>
+                <h1>Bugunun tum siparis akisina tek panelden hakim ol.</h1>
+                <p class="hero-text">
+                    Operasyon takimi, stok ve musteri sureclerini anlik izleyebilecegin hizli bir merkez.
+                    Siparis durumlari, oncelikler ve aksiyon adimlari tek ekranda.
+                </p>
+
+                <div class="hero-actions">
+                    <a class="btn btn-primary" th:href="@{/login}">Panele Giris</a>
+                    <a class="btn btn-secondary" th:href="@{/signup}">Yeni Hesap</a>
+                </div>
+            </article>
+
+            <aside class="status-panel">
+                <h2>Gunun Ozeti</h2>
+                <div class="metric-list">
+                    <div class="metric-card">
+                        <span class="metric-label">Yeni Siparis</span>
+                        <strong class="metric-value">28</strong>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-label">Hazirlanan</span>
+                        <strong class="metric-value">14</strong>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-label">Teslim Edilen</span>
+                        <strong class="metric-value">31</strong>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-label">Kritik Stok</span>
+                        <strong class="metric-value">5</strong>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <section class="workflow-area">
+        <h2>Bugun Yapilacaklar</h2>
+        <div class="task-grid">
+            <article class="task-card">
+                <p class="task-tag">Oncelik</p>
+                <h3>Kargo bekleyen siparisleri tamamla</h3>
+                <p>Sevk bekleyen siparisleri kontrol edip gonderim listesine aktar.</p>
+            </article>
+
+            <article class="task-card">
+                <p class="task-tag">Stok</p>
+                <h3>Kritik urunleri yenile</h3>
+                <p>Stok seviyesi dusuk urunleri tedarik listesine ekle.</p>
+            </article>
+
+            <article class="task-card">
+                <p class="task-tag">Musteri</p>
+                <h3>Gecikmeli siparisleri bilgilendir</h3>
+                <p>Musteri iletisimi gereken siparisleri bir tikla filtrele.</p>
+            </article>
+        </div>
+    </section>
+</main>
 </body>
 </html>

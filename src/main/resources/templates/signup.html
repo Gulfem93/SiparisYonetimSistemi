@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Signup</title>
     <link rel="stylesheet" th:href="@{/css/login.css}">
 </head>
 <body class="login-page page-login">
@@ -19,37 +19,52 @@
                 <p class="eyebrow">Siparis Yonetim Sistemi</p>
                 <h1>Operasyonunu tek ekranda yonet.</h1>
                 <p class="intro">
-                    Tum siparis akisini, stok hareketlerini ve ekip operasyonunu tek panelde hizlica takip et.
+                    Yeni hesap olusturarak siparis akisini, stok hareketlerini ve ekip operasyonunu tek panelde takip et.
                 </p>
             </aside>
 
-            <section class="login-card" aria-labelledby="login-title">
+            <section class="login-card" aria-labelledby="signup-title">
                 <div class="card-top">
-                    <h2 id="login-title">Hesabina Giris Yap</h2>
-                    <p class="card-subtitle">Devam etmek icin bilgilerini gir.</p>
+                    <h2 id="signup-title">Yeni Hesap Olustur</h2>
+                    <p class="card-subtitle">Bilgilerini gir, hemen kullanmaya basla.</p>
                 </div>
 
                 <p th:if="${errorMessage}" th:text="${errorMessage}" class="message message-error"></p>
-                <p th:if="${successMessage}" th:text="${successMessage}" class="message message-success"></p>
 
-                <form class="loginForm" th:action="@{/login}" th:object="${loginForm}" method="post">
+                <form class="loginForm" th:action="@{/signup}" th:object="${signupForm}" method="post">
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 
                     <div class="form-group">
-                        <label for="username">Email / Username</label>
+                        <label for="name">Name</label>
                         <div class="input-wrap">
                             <span class="field-icon" aria-hidden="true"></span>
                             <input
                                     class="home_input"
-                                    id="username"
+                                    id="name"
                                     type="text"
-                                    th:field="*{username}"
-                                    autocomplete="username"
-                                    autocapitalize="none"
-                                    spellcheck="false"
-                                    placeholder="ornek@mail.com veya kullanici adi"
+                                    th:field="*{name}"
+                                    autocomplete="name"
+                                    placeholder="Ad Soyad"
                                     required>
                         </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <div class="input-wrap">
+                            <span class="field-icon" aria-hidden="true"></span>
+                            <input
+                                    class="home_input"
+                                    id="email"
+                                    type="email"
+                                    th:field="*{mail}"
+                                    autocomplete="email"
+                                    autocapitalize="none"
+                                    spellcheck="false"
+                                    placeholder="ornek@mail.com"
+                                    required>
+                        </div>
+                        <small th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}" class="field-error"></small>
                     </div>
 
                     <div class="form-group">
@@ -61,18 +76,19 @@
                                     id="password"
                                     type="password"
                                     th:field="*{password}"
-                                    autocomplete="current-password"
+                                    autocomplete="new-password"
                                     placeholder="********"
                                     required>
                         </div>
+                        <small th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="field-error"></small>
                     </div>
 
-                    <button type="submit" class="login-btn">Giris Yap</button>
+                    <button type="submit" class="login-btn">Kayit Ol</button>
                 </form>
 
                 <p class="signup-link">
-                    Hesabin yok mu?
-                    <a th:href="@{/signup}">Kayit ol</a>
+                    Zaten hesabin var mi?
+                    <a th:href="@{/login}">Giris yap</a>
                 </p>
             </section>
         </div>

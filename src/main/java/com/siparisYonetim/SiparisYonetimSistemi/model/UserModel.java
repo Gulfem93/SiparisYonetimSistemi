@@ -12,11 +12,14 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@Table (name = "USER")
+@Table(name = "user")
 public class UserModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank
+    @NotNull
+    private String username;
     private String name;
     @Email
     @NotNull
