@@ -21,6 +21,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
     private static final String LOGIN_PROCESSING_URL = ControllerConstant.LOGIN;
+    private static final String LOGOUT_PROCESSING_URL = ControllerConstant.LOGOUT;
     private static final String REGISTER = ControllerConstant.SIGNUP;
     private static final String API_PREFIX = ControllerConstant.API;
     private static final String API_PROCESSING_URL = API_PREFIX + "/**";
@@ -44,6 +45,17 @@ public class SecurityConfig {
                         .permitAll()
                 )
                 .logout(logout -> logout
+                        .logoutRequestMatcher(request -> {
+                            String requestUri = request.getRequestURI();
+                            String contextPath = request.getContextPath();
+                            String path = (contextPath != null && !contextPath.isEmpty() && requestUri.startsWith(contextPath))
+                                    ? requestUri.substring(contextPath.length())
+                                    : requestUri;
+                            return LOGOUT_PROCESSING_URL.equals(path);
+                        })
+                        .invalidateHttpSession(true)
+                        .clearAuthentication(true)
+                        .deleteCookies("JSESSIONID")
                         .logoutSuccessUrl(LOGIN_PROCESSING_URL + "?logout=true")
                         .permitAll()
                 )

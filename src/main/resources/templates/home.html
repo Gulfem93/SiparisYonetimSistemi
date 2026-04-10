@@ -9,7 +9,7 @@
 </head>
 <body class="home-page">
 <main class="home-shell">
-    <div th:replace="~{main :: navbar}"></div>
+    <div th:replace="~{main :: navbar(true)}"></div>
 
     <section class="hero-area">
         <div class="shape shape-a"></div>
@@ -23,11 +23,6 @@
                     Operasyon takimi, stok ve musteri sureclerini anlik izleyebilecegin hizli bir merkez.
                     Siparis durumlari, oncelikler ve aksiyon adimlari tek ekranda.
                 </p>
-
-                <div class="hero-actions">
-                    <a class="btn btn-primary" th:href="@{/login}">Panele Giris</a>
-                    <a class="btn btn-secondary" th:href="@{/signup}">Yeni Hesap</a>
-                </div>
             </article>
 
             <aside class="status-panel">

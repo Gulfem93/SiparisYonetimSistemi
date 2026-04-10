@@ -8,15 +8,19 @@
 </head>
 <body>
 
-<div th:fragment="navbar" class="navbar">
+<div th:fragment="navbar(showAccountMenu)" class="navbar">
     <div class="navbar-left">
         <h1>Siparis Yonetim Sistemi</h1>
     </div>
 
-    <div class="navbar-right">
+    <div class="navbar-right" th:if="${showAccountMenu}">
+        <div class="account-name">
+            <span th:text="${accountDisplayName != null ? accountDisplayName : 'Hesabim'}">Hesabim</span>
+        </div>
+
         <div class="user-menu">
             <button type="button" class="user-menu-toggle" aria-haspopup="true">
-                Hesabim
+                <span>Hesabim</span>
                 <span class="caret" aria-hidden="true">▾</span>
             </button>
 
@@ -24,10 +28,7 @@
                 <li><a class="dropdown-item" th:href="@{/me/profile}">Profile</a></li>
                 <li class="menu-divider" role="separator"></li>
                 <li>
-                    <form th:action="@{/logout}" method="post" class="logout-form">
-                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-                        <button type="submit" class="dropdown-item text-danger">Log out</button>
-                    </form>
+                    <a class="dropdown-item text-danger" th:href="@{/logout}">Log out</a>
                 </li>
             </ul>
         </div>
