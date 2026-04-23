@@ -30,19 +30,22 @@ public class SecurityConfig {
                         .requestMatchers(LOGIN_URL, SIGNUP_URL, LOGOUT, HOME_URL).permitAll()
                         .requestMatchers(API).permitAll()
                         .requestMatchers(WEB_WHITELIST).permitAll()
+                        .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage(LOGIN_URL)
                         .failureUrl(LOGIN_URL + "?error=true")
-                        .successForwardUrl(HOME_URL).permitAll()
+                        .defaultSuccessUrl(HOME_URL, true)
                         .permitAll()
                 )
                 .logout(logout -> logout
-                        .logoutSuccessUrl(LOGOUT).permitAll()
+                        .logoutSuccessUrl(LOGOUT + "?logout=true")
+                        .permitAll()
                 )
                 .build();
     }
 
+    @Bean
     public UserDetailsService userDetailsService(UserRepository userRepository) {
         return username -> {
             UserModel user = userRepository.findByUsername(username)

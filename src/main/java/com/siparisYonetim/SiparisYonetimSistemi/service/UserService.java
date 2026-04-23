@@ -26,11 +26,10 @@ public class UserService {
         }
         UserModel userModel = modelMapper.map(userForm, UserModel.class);
         userModel.setPassword(passwordEncoder.encode(userForm.getPassword()));
-        userModel.setName(userForm.getUsername());
+        userModel.setUsername(userForm.getMail());
+        userModel.setName(userForm.getName());
         userModel.setMail(userForm.getMail());
         userRepository.save(userModel);
         return true;
     }
-
-
 }
