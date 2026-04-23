@@ -4,56 +4,33 @@ import com.siparisYonetim.SiparisYonetimSistemi.data.UserData;
 import com.siparisYonetim.SiparisYonetimSistemi.model.UserModel;
 import com.siparisYonetim.SiparisYonetimSistemi.repository.UserRepository;
 import org.modelmapper.ModelMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
-    private final PasswordEncoder passwordEncoder;
+
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
 
-    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository,  ModelMapper modelMapper) {
-        this.passwordEncoder = passwordEncoder;
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
         this.modelMapper = modelMapper;
     }
 
-    @Transactional
-    public boolean createUser(UserData userData) {
-        if (userData == null) {
+    public boolean createUser(UserData userForm) {
+        if (userRepository.findByUsername(userForm.getUsername()).isPresent()) {
             return false;
         }
-        if (userData.getMail() == null || userData.getPassword() == null) {
-            return false;
-        }
-        String normalizedMail = userData.getMail().trim();
-        if (normalizedMail.isBlank() || userData.getPassword().isBlank()) {
-            return false;
-        }
-        if (userRepository.existsByUsername(normalizedMail)) {
-            return false;
-        }
-
-        try {
-            UserModel user = modelMapper.map(userData, UserModel.class);
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            user.setName(user.getName());
-            user.setMail(normalizedMail);
-            user.setUsername(normalizedMail);
-            if (userData.getAccountType() != null) {
-                user.setAccountType(userData.getAccountType().name());
-            }
-            userRepository.save(user);
-            return true;
-        } catch (RuntimeException ex) {
-            LOGGER.warn("User could not be created for mail: {}", normalizedMail, ex);
-            return false;
-        }
-
+        UserModel userModel = modelMapper.map(userForm, UserModel.class);
+        userModel.setPassword(passwordEncoder.encode(userForm.getPassword()));
+        userModel.setName(userForm.getUsername());
+        userModel.setMail(userForm.getMail());
+        userRepository.save(userModel);
+        return true;
     }
+
+
 }
