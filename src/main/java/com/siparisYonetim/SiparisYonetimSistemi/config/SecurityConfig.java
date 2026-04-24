@@ -39,7 +39,8 @@ public class SecurityConfig {
                         .permitAll()
                 )
                 .logout(logout -> logout
-                        .logoutSuccessUrl(LOGOUT + "?logout=true")
+                        .logoutUrl(LOGOUT)
+                        .logoutSuccessUrl(HOME_URL)
                         .permitAll()
                 )
                 .build();
@@ -64,3 +65,4 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 }
+

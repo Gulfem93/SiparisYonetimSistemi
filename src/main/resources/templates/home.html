@@ -5,7 +5,14 @@
   <title>Title</title>
 </head>
 <body>
-<h1>WELCOME</h1>
+<div>
+  <h1>Welcome</h1>
+  <h2 th:if="${userName != null}" th:text="${userName}"></h2>
 
+  <form th:if="${isAuthenticated}" th:action="@{/logout}">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    <button type="submit">Logout</button>
+  </form>
+</div>
 </body>
 </html>
