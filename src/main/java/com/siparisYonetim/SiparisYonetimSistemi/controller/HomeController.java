@@ -23,12 +23,14 @@ public class HomeController {
     @GetMapping
     public String getHome(Model model, Principal principal) {
         model.addAttribute("isAuthenticated", principal != null);
+        model.addAttribute("isAuthenticatedMain", principal != null);
 
         if (principal != null) {
             String username = principal.getName();
             UserModel userModel = userRepository.findByUsername(username).orElseThrow();
 
             model.addAttribute("userName", userModel.getName());
+            model.addAttribute("name", userModel.getName());
         }
 
         return "home";

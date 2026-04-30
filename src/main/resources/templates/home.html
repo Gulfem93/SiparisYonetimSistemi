@@ -1,18 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
+  <title>Home</title>
+  <link rel="stylesheet" href="/css/main.css" th:href="@{/css/main.css}">
 </head>
 <body>
-<div>
-  <h1>Welcome</h1>
-  <h2 th:if="${userName != null}" th:text="${userName}"></h2>
 
-  <form th:if="${isAuthenticated}" th:action="@{/logout}">
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-    <button type="submit">Logout</button>
-  </form>
-</div>
+<div th:replace="~{logout/main :: main}"></div>
+
+<section class="home-content">
+  <div class="welcome-card">
+    <h1>Welcome</h1>
+    <p th:if="${name != null}">
+      Hoş geldin, <strong th:text="${name}"></strong>
+    </p>
+    <p th:if="${name == null}">
+      Sipariş yönetim sistemine hoş geldiniz.
+    </p>
+  </div>
+</section>
+
 </body>
 </html>

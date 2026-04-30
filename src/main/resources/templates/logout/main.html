@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<main th:fragment="main">
+    <nav class="navbar">
+        <div class="navbar-left">
+            <h1>Sipariş Yönetim Sistemi</h1>
+        </div>
+
+        <div class="navbar-right">
+
+            <h2 class="account-name" th:if="${name != null}" th:text="${name}">Kullanıcı</h2>
+
+            <div class="btn-group" th:if="${!isAuthenticatedMain}">
+                <button type="button" class="class-SignupButton" onclick="window.location.href='/signup'">
+                    Signup
+                </button>
+
+                <button type="button" class="class-LoginButton" onclick="window.location.href='/login'">
+                    Login
+                </button>
+            </div>
+
+            <div class="user-menu" th:if="${isAuthenticatedMain}">
+                <button type="button" class="user-menu-toggle" id="menuButton">
+                    Menü <span class="caret">▼</span>
+                </button>
+
+                <ul class="dropdown-menu" id="dropdownMenu">
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li><a class="dropdown-item" href="#">Product</a></li>
+                    <li><a class="dropdown-item" href="#">Setting</a></li>
+
+                    <li class="menu-divider"></li>
+
+                    <li>
+                        <form method="post" th:action="@{/logout}" class="logout-form">
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                            <button type="submit" class="dropdown-item text-danger">Logout</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+
+    <script>
+        const menuButton = document.getElementById("menuButton");
+        const dropdownMenu = document.getElementById("dropdownMenu");
+
+        if (menuButton && dropdownMenu) {
+            menuButton.addEventListener("click", function () {
+                dropdownMenu.classList.toggle("show");
+            });
+
+            document.addEventListener("click", function (event) {
+                if (!event.target.closest(".user-menu")) {
+                    dropdownMenu.classList.remove("show");
+                }
+            });
+        }
+    </script>
+</main>
+
+</body>
+</html>
