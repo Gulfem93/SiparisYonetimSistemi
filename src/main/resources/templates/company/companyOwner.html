@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="tr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Şirket Sahibi Paneli</title>
+    <link rel="stylesheet" th:href="@{/css/company/company.css}">
+</head>
+<body>
+
+<div class="dashboard">
+    <aside class="sidebar">
+        <div>
+            <h2>Şirket Paneli</h2>
+
+            <nav class="menu">
+                <a th:href="@{/companyOwner}">Ana Sayfa</a>
+                <a th:href="@{/companyOwner/products}">Ürünlerimiz</a>
+                <a href="#">Ayarlar</a>
+            </nav>
+        </div>
+
+        <form method="post" th:action="@{/logout}" class="logout-form">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <button type="submit" class="logout-btn">Çıkış Yap</button>
+        </form>
+    </aside>
+
+    <main class="content">
+        <section class="welcome-card">
+            <h1>Hoş geldiniz 👋</h1>
+            <p>Ürünlerinizi yönetebilir, yeni ürün ekleyebilir ve şirket ayarlarınızı düzenleyebilirsiniz.</p>
+        </section>
+
+        <section class="quick-actions">
+            <a class="action-card" th:href="@{/companyOwner/products}">
+                <h3>Ürünlerimiz</h3>
+                <p>Mevcut ürünlerinizi görüntüleyin.</p>
+            </a>
+
+            <a class="action-card" th:href="@{/companyOwner/products/new}">
+                <h3>Ürün Ekle</h3>
+                <p>Yeni ürün kaydı oluşturun.</p>
+            </a>
+
+            <a class="action-card" href="#">
+                <h3>Ayarlar</h3>
+                <p>Şirket bilgilerinizi yönetin.</p>
+            </a>
+        </section>
+    </main>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="tr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ürün Düzenle</title>
+    <link rel="stylesheet" th:href="@{/css/company/company.css}">
+</head>
+<body>
+
+<div class="dashboard">
+    <aside class="sidebar">
+        <div>
+            <h2>Şirket Paneli</h2>
+
+            <nav class="menu">
+                <a th:href="@{/companyOwner}">Ana Sayfa</a>
+                <a th:href="@{/companyOwner/products}">Ürünlerimiz</a>
+                <a href="#">Ayarlar</a>
+            </nav>
+        </div>
+
+        <form method="post" th:action="@{/logout}" class="logout-form">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <button type="submit" class="logout-btn">Çıkış Yap</button>
+        </form>
+    </aside>
+
+    <main class="content">
+        <section class="welcome-card">
+            <h1>Ürün Düzenle</h1>
+            <p>Ürün bilgilerini buradan güncelleyebilirsiniz.</p>
+        </section>
+
+        <section class="table-card">
+
+            <div th:if="${error}" class="error-message">
+                <p th:text="${error}"></p>
+            </div>
+
+            <form th:action="@{/companyOwner/products/delete}"
+                  th:object="${productDeleteForm}"
+                  method="post">
+
+                <input type="hidden" th:field="*{id}">
+
+                <table class="product-table">
+                    <tbody>
+                    <tr>
+                        <th>Ürün Adı</th>
+                        <td>
+                            <input type="text" th:field="*{name}" placeholder="Ürün adı">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Ürün Kodu</th>
+                        <td>
+                            <input type="text" th:field="*{code}" placeholder="Ürün kodu">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Fiyat</th>
+                        <td>
+                            <input type="number" th:field="*{price}" placeholder="Fiyat">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Stok</th>
+                        <td>
+                            <input type="number" th:field="*{stock}" placeholder="Stok">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2" style="text-align:right;">
+                            <a class="secondary-btn small-btn"
+                               th:href="@{/companyOwner/products}">
+                                Vazgeç
+                            </a>
+
+                            <button type="submit" class="primary-btn small-btn">
+                                Güncelle
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </form>
+
+        </section>
+    </main>
+</div>
+
+</body>
+</html>

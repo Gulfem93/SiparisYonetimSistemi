@@ -1,6 +1,9 @@
 spring:
   application:
     name: SiparisYonetimSistemi
+  devtools:
+    restart:
+      enabled: false
   jpa:
 
     hibernate:
@@ -18,6 +21,8 @@ spring:
     url: jdbc:mysql://localhost:3306/siparisyonetimdb
     username: root
     password: Secret@3210
+server:
+  port: 8080
 security:
   jwt:
     expiration-time: 3600000

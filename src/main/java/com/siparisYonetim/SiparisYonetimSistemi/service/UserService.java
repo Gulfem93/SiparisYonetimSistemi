@@ -29,6 +29,7 @@ public class UserService {
         userModel.setUsername(userForm.getMail());
         userModel.setName(userForm.getName());
         userModel.setMail(userForm.getMail());
+        userModel.setAccountType(userForm.getAccountType());
         userRepository.save(userModel);
         return true;
     }

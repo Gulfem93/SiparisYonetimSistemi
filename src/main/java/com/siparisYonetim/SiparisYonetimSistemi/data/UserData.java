@@ -1,4 +1,5 @@
 package com.siparisYonetim.SiparisYonetimSistemi.data;
+import com.siparisYonetim.SiparisYonetimSistemi.entiity.UserType;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -16,4 +17,6 @@ public class UserData implements Serializable {
     private String mail;
     @NotBlank
     private String password;
+
+    private UserType accountType;
 }

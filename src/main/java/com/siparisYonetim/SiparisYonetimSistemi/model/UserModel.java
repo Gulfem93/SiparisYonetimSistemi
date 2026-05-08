@@ -1,5 +1,6 @@
 package com.siparisYonetim.SiparisYonetimSistemi.model;
 
+import com.siparisYonetim.SiparisYonetimSistemi.entiity.UserType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -29,5 +30,6 @@ public class UserModel {
     @NotBlank
     private String password;
 
-    private String accountType;
+    @Enumerated(EnumType.STRING)
+    private UserType accountType;
 }
