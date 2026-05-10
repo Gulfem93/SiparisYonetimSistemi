@@ -4,6 +4,7 @@ import com.siparisYonetim.SiparisYonetimSistemi.constant.ControllerConstant;
 import com.siparisYonetim.SiparisYonetimSistemi.data.ProductData;
 import com.siparisYonetim.SiparisYonetimSistemi.service.ProductService;
 import jakarta.validation.Valid;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,8 +21,8 @@ public class ProductController {
     }
 
     @GetMapping
-    public String productPage(Model model) {
-        model.addAttribute("products", productService.getAllProducts());
+    public String productPage(Model model, Authentication authentication) {
+        model.addAttribute("products", productService.getAllProducts(getCompanyName(authentication)));
         return "company/companyOwner-product";
     }
 
@@ -34,13 +35,14 @@ public class ProductController {
     @PostMapping("/new")
     public String createProduct(@Valid @ModelAttribute("productForm") ProductData productForm,
                                 BindingResult bindingResult,
-                                Model model) {
+                                Model model,
+                                Authentication authentication) {
 
         if (bindingResult.hasErrors()) {
             return "products/new";
         }
 
-        boolean created = productService.createProduct(productForm);
+        boolean created = productService.createProduct(productForm, getCompanyName(authentication));
 
         if (!created) {
             model.addAttribute("error", "Bu ürün kodu zaten kullanılıyor.");
@@ -51,8 +53,8 @@ public class ProductController {
     }
 
     @GetMapping("/edit/{code}")
-    public String getProductEdit(@PathVariable("code") String code, Model model) {
-        ProductData productEditForm = productService.getProductByCode(code);
+    public String getProductEdit(@PathVariable("code") String code, Model model, Authentication authentication) {
+        ProductData productEditForm = productService.getProductByCode(code, getCompanyName(authentication));
 
         if (productEditForm == null) {
             return "redirect:/companyOwner/products";
@@ -65,13 +67,14 @@ public class ProductController {
     @PostMapping("/edit")
     public String updateProduct(@Valid @ModelAttribute("productEditForm") ProductData productEditForm,
                                 BindingResult bindingResult,
-                                Model model) {
+                                Model model,
+                                Authentication authentication) {
 
         if (bindingResult.hasErrors()) {
             return "products/edit";
         }
 
-        boolean updated = productService.updateProduct(productEditForm);
+        boolean updated = productService.updateProduct(productEditForm, getCompanyName(authentication));
 
         if (!updated) {
             model.addAttribute("error", "Bu ürün kodu başka bir üründe kullanılıyor.");
@@ -82,8 +85,12 @@ public class ProductController {
     }
 
     @GetMapping("/delete/{code}")
-    public String deleteProduct(@PathVariable("code") String code) {
-        productService.deleteProductByCode(code);
+    public String deleteProduct(@PathVariable("code") String code, Authentication authentication) {
+        productService.deleteProductByCode(code, getCompanyName(authentication));
         return "redirect:/companyOwner/products";
+    }
+
+    private String getCompanyName(Authentication authentication) {
+        return authentication.getName();
     }
 }

@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<ProductModel, Long> {
-    Optional<ProductModel> findByCode(String code);
-    Optional<ProductModel> findAllById(Long productId);
-    boolean existsByCode(String code);
+    Optional<ProductModel> findByCodeAndCompanyName(String code, String companyName);
+    List<ProductModel> findAllByCompanyName(String companyName);
+    Optional<ProductModel> findByIdAndCompanyName(Long id, String companyName);
+    boolean existsByCodeAndCompanyName(String code, String companyName);
 }

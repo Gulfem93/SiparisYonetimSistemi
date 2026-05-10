@@ -21,4 +21,5 @@ public class ProductModel {
     private String code;
     private Long price;
     private String stock;
+    private String companyName;
 }
