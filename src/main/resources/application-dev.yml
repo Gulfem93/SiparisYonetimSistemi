@@ -9,9 +9,6 @@ spring:
     hibernate:
       ddl-auto: update
     open-in-view: true
-    properties:
-      hibernate:
-        current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
     defer-datasource-initialization: true
   sql:
     init:
