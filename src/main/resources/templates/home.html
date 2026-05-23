@@ -1,25 +1,129 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="tr" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>Home</title>
-  <link rel="stylesheet" href="/css/main.css" th:href="@{/css/main.css}">
+  <link rel="stylesheet" th:href="@{/css/main.css}">
+  <link rel="stylesheet" th:href="@{/css/home.css}">
 </head>
-<body>
+
+<body class="home-page">
+
 <main>
-  <section><div th:replace="~{logout/main :: main}"></div></section>
+  <section>
+    <div th:replace="~{logout/main :: main}"></div>
+  </section>
 </main>
-<section class="home-content">
-  <div class="welcome-card">
-    <h1>Welcome</h1>
-    <p th:if="${name != null}">
-      Hoş geldin, <strong th:text="${name}"></strong>
-    </p>
-    <p th:if="${name == null}">
-      Sipariş yönetim sistemine hoş geldiniz.
-    </p>
-  </div>
-</section>
+
+<div class="home-shell">
+
+  <section class="hero-area">
+    <span class="shape shape-a"></span>
+    <span class="shape shape-b"></span>
+
+    <div class="hero-grid">
+
+      <article class="hero-content">
+        <p class="kicker">Sipariş Merkezi</p>
+
+        <h1>Ürünleri Karşılaştır, Seçimini Hemen Yap</h1>
+
+        <p class="hero-text" th:if="${name != null}">
+          Hoş geldin, <strong th:text="${name}">Kullanıcı</strong>.
+          Tüm şirketlerin ürünlerini tek ekrandan görüntüleyebilirsin.
+        </p>
+
+        <p class="hero-text" th:if="${name == null}">
+          Sipariş yönetim sistemine hoş geldiniz.
+          Ürünleri görüntülemek için giriş yapabilirsiniz.
+        </p>
+      </article>
+
+      <aside class="status-panel">
+        <h2>Hızlı Özet</h2>
+
+        <div class="metric-list">
+          <div class="metric-card">
+            <span>Toplam Ürün</span>
+            <strong th:text="${products != null ? #lists.size(products) : 0}">0</strong>
+          </div>
+
+          <div class="metric-card">
+            <span>Görünüm</span>
+            <strong th:text="${isAuthenticated ? 'Tüm Şirketler' : 'Login Gerekli'}">Tüm Şirketler</strong>
+          </div>
+
+          <div class="metric-card">
+            <span>Durum</span>
+            <strong th:text="${isAuthenticated ? 'Aktif' : 'Misafir'}">Aktif</strong>
+          </div>
+
+          <div class="metric-card">
+            <span>Para Birimi</span>
+            <strong>TRY</strong>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </section>
+
+  <section class="workflow-area" th:if="${isAuthenticated}">
+    <div class="section-header">
+      <div>
+        <p class="kicker">Ürünler</p>
+        <h2>Ürün Listesi</h2>
+      </div>
+    </div>
+
+    <div class="product-list-card">
+
+      <table class="product-table">
+        <thead>
+        <tr>
+          <th>Şirket</th>
+          <th>Ürün</th>
+          <th>Fiyat</th>
+          <th>Adet</th>
+          <th>İşlem</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:if="${products == null || #lists.isEmpty(products)}">
+          <td colspan="5" class="empty-message">
+            Henüz ürün bulunamadı.
+          </td>
+        </tr>
+
+        <tr th:each="product : ${products}">
+          <td th:text="${product.companyName}">Şirket Adı</td>
+          <td th:text="${product.name}">Ürün Adı</td>
+          <td>
+            <span th:text="${product.price}">1500</span> ₺
+          </td>
+          <td>
+            <input class="quantity-input" type="number" min="1" value="1">
+          </td>
+          <td>
+            <button type="button" class="add-btn">Ekle</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </section>
+
+  <section class="workflow-area" th:if="${!isAuthenticated}">
+    <div class="guest-card">
+      <h2>Ürün Listesi</h2>
+      <p>Ürünleri görmek için lütfen giriş yapın.</p>
+      <a th:href="@{/login}" class="login-link">Giriş Yap</a>
+    </div>
+  </section>
+
+</div>
 
 </body>
 </html>

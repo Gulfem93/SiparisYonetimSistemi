@@ -200,6 +200,46 @@ body.home-page {
     font-size: clamp(1.25rem, 2.6vw, 1.75rem);
 }
 
+.product-list-card {
+    background: rgba(255, 255, 255, 0.86);
+    border: 1px solid rgba(220, 232, 244, 0.9);
+    border-radius: 20px;
+    box-shadow: var(--shadow-soft);
+    overflow-x: auto;
+}
+
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 680px;
+}
+
+.product-table thead th {
+    text-align: left;
+    padding: 0.9rem 1rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #335778;
+    background: #e9f3fc;
+    border-bottom: 1px solid #d3e4f3;
+}
+
+.product-table tbody td {
+    padding: 0.92rem 1rem;
+    color: #183550;
+    border-bottom: 1px solid #e8f0f8;
+    font-size: 0.92rem;
+}
+
+.product-table tbody tr:nth-child(even) td {
+    background: rgba(248, 252, 255, 0.72);
+}
+
+.product-table tbody tr:hover td {
+    background: #f2f8ff;
+}
+
 .task-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(180px, 1fr));

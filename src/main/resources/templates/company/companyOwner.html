@@ -11,6 +11,7 @@
     <aside class="sidebar">
         <div>
             <h2>Şirket Paneli</h2>
+            <p class="sidebar-username" th:if="${displayName != null}" th:text="${displayName}">Şirket Adı</p>
 
             <nav class="menu">
                 <a th:href="@{/companyOwner}">Ana Sayfa</a>

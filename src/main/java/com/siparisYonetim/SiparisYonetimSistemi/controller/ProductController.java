@@ -2,6 +2,7 @@ package com.siparisYonetim.SiparisYonetimSistemi.controller;
 
 import com.siparisYonetim.SiparisYonetimSistemi.constant.ControllerConstant;
 import com.siparisYonetim.SiparisYonetimSistemi.data.ProductData;
+import com.siparisYonetim.SiparisYonetimSistemi.repository.UserRepository;
 import com.siparisYonetim.SiparisYonetimSistemi.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.security.core.Authentication;
@@ -15,14 +16,17 @@ import org.springframework.web.bind.annotation.*;
 public class ProductController {
 
     private final ProductService productService;
+    private final UserRepository userRepository;
 
-    public ProductController(ProductService productService) {
+    public ProductController(ProductService productService, UserRepository userRepository) {
         this.productService = productService;
+        this.userRepository = userRepository;
     }
 
     @GetMapping
     public String productPage(Model model, Authentication authentication) {
         model.addAttribute("products", productService.getAllProducts(getCompanyName(authentication)));
+        model.addAttribute("displayName", getDisplayName(authentication));
         return "company/companyOwner-product";
     }
 
@@ -91,6 +95,13 @@ public class ProductController {
     }
 
     private String getCompanyName(Authentication authentication) {
-        return authentication.getName();
+        return userRepository.findByUsername(authentication.getName())
+                .map(user -> user.getName())
+                .filter(name -> !name.isBlank())
+                .orElse(authentication.getName());
+    }
+
+    private String getDisplayName(Authentication authentication) {
+        return getCompanyName(authentication);
     }
 }

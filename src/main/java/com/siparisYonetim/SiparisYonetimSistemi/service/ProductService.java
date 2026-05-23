@@ -39,6 +39,13 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
+    public List<ProductData> getAllProducts() {
+        return productRepository.findAll()
+                .stream()
+                .map(product -> modelMapper.map(product, ProductData.class))
+                .collect(Collectors.toList());
+    }
+
     public ProductData getProductByCode(String code, String companyName) {
         return productRepository.findByCodeAndCompanyName(code, companyName)
                 .map(product -> modelMapper.map(product, ProductData.class))
